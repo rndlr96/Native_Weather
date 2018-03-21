@@ -1,39 +1,48 @@
-import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, ActivityIndicator, StatusBar } from 'react-native';
+import Weather from "./Weather";
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style = {styles.redView}/>
-        <View style = {styles.yellowView}/>
-        <View style = {styles.redView}/>
-        <View style = {styles.yellowView}/>
-      </View>
-    );
+
+  state = {
+    isLoaded: true
   }
+
+   render() {
+     const {isLoaded} = this.state;
+     return (
+       <View style={styles.container}>
+         <StatusBar barStyle = "light-content"/>
+         {
+           isLoaded ? (
+             <Weather/>
+           ) : (
+             <View style={styles.loading}>
+               <ActivityIndicator/>
+               <Text style = {styles.loadingtext}>Now I getting the Weather</Text>
+             </View>
+           )
+         }
+       </View>
+     );
+   }
 }
 
-const styles = StyleSheet.create({
-  container: {
+ const styles = StyleSheet.create({
+   container: {
+     flex: 1,
+    backgroundColor: '#fff'
+  },
+
+  loading: {
     flex: 1,
-    justifyContent:'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#FDF6AA',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
 
-  redView : {
-    height: 50,
-    width: 50,
-    backgroundColor: 'red',
-    alignSelf: 'center'
-  },
-
-  yellowView : {
-    height: 50,
-    width: 50,
-    backgroundColor: 'yellow',
-    alignSelf:'flex-start'
+  loadingtext:{
+    fontSize:30,
+    marginBottom: 100
   }
 });
