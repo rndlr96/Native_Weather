@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ActivityIndicator, StatusBar } from 'react-nati
 import Rain from "./Weather/Rain";
 import Sunny from "./Weather/Sunny";
 import Cloud from "./Weather/Cloud";
+import Weather from "./Weather"
 
 const API_KEY = '45ae472d107e47842765826a9194ede3';
 
@@ -10,7 +11,9 @@ export default class App extends React.Component {
 
   state = {
     isLoaded: false,
-    error: null
+    error: null,
+    temperature: null,
+    name: null
   }
 
   componentDidMount(){
@@ -31,18 +34,22 @@ export default class App extends React.Component {
     fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${API_KEY}`)
     .then(response => response.json())
     .then(json => {
-      console.log(json);
+      this.setState({
+        temperature: json.main.temp,
+        name : json.weather[0].main,
+        isLoaded: true
+      });
     });
   };
 
    render() {
-     const {isLoaded, error} = this.state;
+     const {isLoaded, error, temperature, name} = this.state;
      return (
        <View style={styles.container}>
          <StatusBar barStyle = "light-content"/>
          {
            isLoaded ? (
-             <Cloud/>
+             <Weather weatherName = {name} temp= {Math.floor(temperature - 273.15)}/>
            ) : (
              <View style={styles.loading}>
                <ActivityIndicator/>

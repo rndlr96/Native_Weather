@@ -3,23 +3,25 @@ import { StyleSheet, Text, View } from 'react-native';
 import {LinearGradient} from "expo";
 import { Ionicons } from "@expo/vector-icons"
 
-export default class Sunny extends Component{
-  render(){
-    return(
-      <LinearGradient colors={["red", "#fafc8d", "#faff00"]} style={styles.container}>
-        <View style={ styles.upper }>
-          <Ionicons style = { styles.icon } color = "white" size = {144} name = "md-sunny"/>
-          <Text style = { styles.temp }>35</Text>
-        </View>
 
-        <View style={styles.lower}>
-          <Text style = { styles.title }>Raining Now</Text>
-          <Text style = { styles.subtitle }>Must bring user umbrella</Text>
-        </View>
-      </LinearGradient>
-    );
-  }
+
+function Sunny(){
+  return(
+    <LinearGradient colors={["red", "#fafc8d", "#faff00"]} style={styles.container}>
+      <View style={ styles.upper }>
+        <Ionicons style = { styles.icon } color = "white" size = {144} name = "md-sunny"/>
+        <Text style = { styles.temp }>35°</Text>
+      </View>
+
+      <View style={styles.lower}>
+        <Text style = { styles.title }>Raining Now</Text>
+        <Text style = { styles.subtitle }>Must bring user umbrella</Text>
+      </View>
+    </LinearGradient>
+  );
 }
+
+export default Sunny;
 
 const styles = StyleSheet.create({
   container: {
